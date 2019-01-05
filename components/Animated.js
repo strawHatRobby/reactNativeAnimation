@@ -16,19 +16,23 @@ export default class AnimatedComponent extends React.Component {
 
     componentDidMount(){
         Animated.timing(this.animateValue, {
-            toValue: .5,
-            duration: 10000,
+            toValue: 100,
+            duration: 2000,
             easing: Easing.bounce
         }).start()
     }
 
   render() {
       const animatedStyle = {
-          opacity: this.animateValue
+          height: this.animateValue
       }
     return (
       <View style={styles.container}>
-            <Animated.View style={[styles.box, animatedStyle]}/>
+            <Animated.View style={[styles.box, animatedStyle]}>
+                <Text style={ {color: '#fff', textAlign: 'center'}}>
+                    Its a scroll
+                </Text>
+            </Animated.View>
       </View>
     );
   }
@@ -42,8 +46,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   box: {
+      borderTopWidth: 5,
+      borderBottomWidth: 5,
+      borderColor: 'red',
+      borderRadius: 1,
       backgroundColor: '#345',
       width: 100,
-      height: 100
+      height: 100,
+      justifyContent: "center", 
+      alignItems: "center"     
   }
 });
