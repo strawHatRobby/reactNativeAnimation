@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { AppRegistry, Animated, Easing } from 'react-native';
+import { AppRegistry, Animated, Easing, TouchableWithoutFeedback } from 'react-native';
 
 export default class AnimatedComponent extends React.Component {
     constructor(props){
@@ -8,6 +8,22 @@ export default class AnimatedComponent extends React.Component {
         this.state = {
 
         }
+        this.handlePressIn = this.handlePressIn.bind(this);
+        this.handlePressOut = this.handlePressOut.bind(this);
+    }
+
+    handlePressIn(){
+        Animated.spring(this.animateValue, {
+            toValue: 150
+        }).start()
+    }
+
+    handlePressOut(){
+        Animated.spring(this.animateValue, {
+          toValue: 100,
+          friction: 3,
+          tension: 40  
+        }).start()
     }
 
     componentWillMount(){
@@ -28,11 +44,16 @@ export default class AnimatedComponent extends React.Component {
       }
     return (
       <View style={styles.container}>
+      <TouchableWithoutFeedback
+        onPressIn = {this.handlePressIn}
+        onPressOut = { this.handlePressOut}
+      >
             <Animated.View style={[styles.box, animatedStyle]}>
                 <Text style={ {color: '#fff', textAlign: 'center'}}>
                     Its a scroll
                 </Text>
             </Animated.View>
+    </TouchableWithoutFeedback>
       </View>
     );
   }
